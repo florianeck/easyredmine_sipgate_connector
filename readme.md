@@ -5,7 +5,8 @@
 - https://api.sipgate.com/v1/doc
 - https://developer.sipgate.io/v1.0/
 - https://developer.sipgate.io/docs/authentication
-- https://api.sipgate.com/developer
+- [Setting up clients to get _client_id_ and _client_secret](https://api.sipgate.com/developer)
+  
   
 
 ## Info

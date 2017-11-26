@@ -24,7 +24,7 @@ module EasyredmineSipgateConnector
       config_from_yaml['client_id']
     end
   
-    def client_secrect
+    def client_secret
       config_from_yaml['client_secret']
     end
   
