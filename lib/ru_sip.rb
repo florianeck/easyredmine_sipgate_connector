@@ -81,10 +81,9 @@ module RuSip
     end
     
     #== sessions
-    def calls(deviceid, userid, callee)
+    def calls(deviceid, callee)
       post("/sessions/calls", {
-        "caller": userid,
-        "deviceId": deviceid,
+        "caller": deviceid,
         "callee": callee
       })
     end
@@ -101,7 +100,9 @@ module RuSip
     end
     
     def post(path, data)
-      RestClient.post(url(path), data.to_json, headers)
+      RestClient.post(url(path), data.to_json, headers) do |response|
+        response
+      end
     end
     
     def url(path)
@@ -109,7 +110,7 @@ module RuSip
     end
     
     def headers
-      {"Authorization" => "Bearer #{access_token}", "content-type" => "application/json"}
+      {"authorization" => "bearer #{access_token}", "content-type" => "application/json", "accept" => "application/json"}
     end
   end
 end

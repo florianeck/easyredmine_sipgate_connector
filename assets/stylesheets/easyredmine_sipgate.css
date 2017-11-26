@@ -1,0 +1,9 @@
+.sipgate-phone-container { position: relative;}
+.sipgate-phone-container, .sipgate-phone-container * { display: inline-block; }
+.sipgate-phone-container { padding: 10px;}
+.device-dropdown { position: absolute; z-index: 1000; }
+.device-list { position: relative; display: none; background: #fff; }
+.device-list a { white-space: nowrap;}
+
+
+.sipgate-phone-container:hover .device-list { display: block; left: 0px; top: 0px;}

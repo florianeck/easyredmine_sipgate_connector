@@ -39,3 +39,6 @@ require "easyredmine_sipgate_connector/hooks"
 require "easyredmine_sipgate_connector/user_extension"
 
 User.send :include, EasyredmineSipgateConnector::UserExtension
+
+ApplicationController.send :include, EasyredmineSipgateHelper
+ApplicationController.send :helper, :easyredmine_sipgate

@@ -25,6 +25,11 @@ class SipgateConnectorController < ApplicationController
     end    
   end
   
+  def make_call
+    resp = User.current.make_call(params[:call][:device_id], params[:call][:callee])
+    render status: resp.code, text: resp.body
+  end
+  
   private 
   
   def rusip_auth

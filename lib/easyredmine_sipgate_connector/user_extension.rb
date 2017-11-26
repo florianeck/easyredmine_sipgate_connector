@@ -16,6 +16,14 @@ module EasyredmineSipgateConnector
       end
     end
     
+    def sipgate_active?
+      self.sipgate_user_id.present? && self.sipgate_token.present?
+    end
+    
+    def make_call(deviceid, callee)
+      rusip_api.calls(deviceid, callee)
+    end
+    
     private
     def rusip_api
       @_rusip_api ||= RuSip::Api.new(self.sipgate_token)

@@ -3,7 +3,7 @@
   <fieldset class="box tabular">
     <legend><%=l(:label_sipgate_status)%></legend>
     
-    <% if @user.sipgate_user_id.present? && @user.sipgate_token.present? %>
+    <% if @user.sipgate_active? %>
       <p>
         <%= l("rusip.labels.user_id_info", user_id: @user.sipgate_user_id) %><br>
         <%= l("rusip.labels.available_devices") %>:
