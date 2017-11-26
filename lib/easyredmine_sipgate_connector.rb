@@ -15,5 +15,9 @@ module EasyredmineSipgateConnector
       raise LoadError, "Cant find config file under #{CONFIG_FILE_PATH}"
     end
   end
+  
+  def scope
+    'all'
+  end
       
 end
