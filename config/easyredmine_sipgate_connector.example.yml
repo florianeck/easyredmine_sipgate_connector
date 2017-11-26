@@ -1,7 +1,7 @@
 # these values can be retrieven from https://api.sipgate.com/developer
 # just add a new client in the developer panel and paste the values here
 client_id: your-client-id
-client_secrect: your-client-secrect
+client_secret: your-client-secrect
 
 
 # add the URL for your web server here (incl. protocal and port)

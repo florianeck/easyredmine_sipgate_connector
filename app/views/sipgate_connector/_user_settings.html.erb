@@ -7,7 +7,7 @@
       <p><%= l("rusip.labels.user_id_info", user_id: @user.sipgate_user_id) %></p>
     <% else %>
       <p><%= l("rusip.labels.no_user_id") %></p>
-      <p><%= link_to l("rusip.buttons.get_user_id"), sipgate_auth_path %></p>
+      <p><%= link_to l("rusip.buttons.get_user_id"), sipgate_auth_path(from: request.url) %></p>
     <% end %>
     
     <p><%= f.text_field :login, :required => true, :size => 25  %></p>

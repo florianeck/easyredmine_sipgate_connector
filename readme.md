@@ -2,10 +2,10 @@
 
 ## Resources
 
-- https://api.sipgate.com/v1/doc
+- [Sipgate REST API documentation (v1 - Stable)](https://api.sipgate.com/v1/doc)
 - https://developer.sipgate.io/v1.0/
 - https://developer.sipgate.io/docs/authentication
-- [Setting up clients to get _client_id_ and _client_secret](https://api.sipgate.com/developer)
+- [Setting up clients to get _client_id_ and _client_secret_](https://api.sipgate.com/developer)
   
   
 

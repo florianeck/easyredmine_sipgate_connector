@@ -48,10 +48,52 @@ module RuSip
         URI(TOKEN_URL),
         token_request_params(code).stringify_keys
       )
-      
       return response 
     end
     
   end
   
+  class Api
+    require "rest-client"
+    
+    BASE_URL = "https://api.sipgate.com/v1"
+    
+    attr_reader :access_token
+    
+    def initialize(access_token)
+      @access_token = access_token
+    end
+    
+    #== Authorization
+      
+    def authorization_userinfo
+      get("/authorization/userinfo")
+    end
+    
+    #== devices
+    def devices_for_user(userid)
+      get "/#{userid}/devices"
+    end
+    
+    
+    #== Users
+    
+    def users
+      get("/users")
+    end
+    
+    private
+    
+    def get(path)
+      JSON.parse(RestClient.get(url(path), headers))
+    end
+    
+    def url(path)
+      File.join(BASE_URL, path)
+    end
+    
+    def headers
+      {"Authorization" => "Bearer #{access_token}"}
+    end
+  end
 end
