@@ -75,9 +75,21 @@ module RuSip
       get "/#{userid}/devices"
     end
     
+    #== numbers
+    def numbers_for_user(userid)
+      get("/#{userid}/numbers")
+    end
+    
+    #== sessions
+    def calls(deviceid, userid, callee)
+      post("/sessions/calls", {
+        "caller": userid,
+        "deviceId": deviceid,
+        "callee": callee
+      })
+    end
     
     #== Users
-    
     def users
       get("/users")
     end
@@ -88,12 +100,16 @@ module RuSip
       JSON.parse(RestClient.get(url(path), headers))
     end
     
+    def post(path, data)
+      RestClient.post(url(path), data.to_json, headers)
+    end
+    
     def url(path)
       File.join(BASE_URL, path)
     end
     
     def headers
-      {"Authorization" => "Bearer #{access_token}"}
+      {"Authorization" => "Bearer #{access_token}", "content-type" => "application/json"}
     end
   end
 end

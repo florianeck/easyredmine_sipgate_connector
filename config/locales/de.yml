@@ -5,5 +5,7 @@ de:
     labels:
       user_id_info: "Sipgate User-ID: %{user_id}"
       no_user_id: "keine Sipgate User-ID vorhanden"
+      available_devices: Verfügbare Geräte
     buttons:
       get_user_id: "Authentifizierung durchführen"  
+      reload_user_id: Geräteliste aktualisierung oder Authentifizierung erneut durchführen

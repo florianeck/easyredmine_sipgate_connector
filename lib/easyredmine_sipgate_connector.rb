@@ -33,11 +33,9 @@ module EasyredmineSipgateConnector
     end
   end
   
-  class Hooks < Redmine::Hook::ViewListener
-    
-    def helper_user_settings_tabs(context = {})
-      context[:tabs] << {:name => 'sipgate', :partial => 'sipgate_connector/user_settings', :label => :label_sipgate, :user => context[:user]}
-    end
-  end
-      
 end
+
+require "easyredmine_sipgate_connector/hooks"
+require "easyredmine_sipgate_connector/user_extension"
+
+User.send :include, EasyredmineSipgateConnector::UserExtension

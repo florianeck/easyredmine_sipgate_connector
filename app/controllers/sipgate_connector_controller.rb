@@ -13,7 +13,10 @@ class SipgateConnectorController < ApplicationController
       if response_for_token.code == '200'
         data = JSON.parse(response_for_token.body)
         user_info = RuSip::Api.new(data['access_token']).authorization_userinfo
-        User.current.update_attributes(sipgate_token: data['access_token'], sipgate_user_id: user_info['sub'])
+        user = User.current
+        user.update_attributes(sipgate_token: data['access_token'], sipgate_user_id: user_info['sub'])
+        user.reload_sipgate_devices
+        user.save
       else
         flash[:error] = "Sipgate Auth Failed"
       end

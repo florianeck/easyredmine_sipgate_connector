@@ -4,32 +4,22 @@
     <legend><%=l(:label_sipgate_status)%></legend>
     
     <% if @user.sipgate_user_id.present? && @user.sipgate_token.present? %>
-      <p><%= l("rusip.labels.user_id_info", user_id: @user.sipgate_user_id) %></p>
+      <p>
+        <%= l("rusip.labels.user_id_info", user_id: @user.sipgate_user_id) %><br>
+        <%= l("rusip.labels.available_devices") %>:
+        <br><br>
+        <% @user.sipgate_devices.each do |did, dname| %>
+          - <span><%= dname %> (<i><%= did %></i>)</span><br>
+        <% end %>
+      </p>
+      <p><%= link_to l("rusip.buttons.reload_user_id"), sipgate_auth_path(from: request.url) %></p>
     <% else %>
       <p><%= l("rusip.labels.no_user_id") %></p>
       <p><%= link_to l("rusip.buttons.get_user_id"), sipgate_auth_path(from: request.url) %></p>
     <% end %>
-    
-    <p><%= f.text_field :login, :required => true, :size => 25  %></p>
-    <p><%= f.text_field :firstname, :required => true %></p>
-    <p><%= f.text_field :lastname, :required => true %></p>
-    <p><%= f.text_field :mail, :required => true %></p>
-    <% unless @user.force_default_language? %>
-    <p><%= f.select :language, lang_options_for_select %></p>
-    <% end %>
-    <% if Setting.openid? %>
-    <p><%= f.text_field :identity_url  %></p>
-    <% end %>
-
-    <% @user.custom_field_values.each do |value| %>
-      <p><%= custom_field_tag_with_label :user, value %></p>
-    <% end %>
-
-    <p><%= f.check_box :admin, :disabled => (@user == User.current) %></p>
-    <%= call_hook(:view_users_form, :user => @user, :form => f) %>
   </fieldset>
   
   <div class="form-actions">
-    <%= submit_tag l(:button_save), :class => 'button-positive' %>
+    <%#= submit_tag l(:button_save), :class => 'button-positive' %>
   </div>
 <% end %>
