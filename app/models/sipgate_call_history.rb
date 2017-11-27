@@ -17,7 +17,7 @@ class SipgateCallHistory < ActiveRecord::Base
   # integer   :duration         # => call duration in seconds
   
   #== Configuration
-  
+  scope :without_easy_contact, -> { where(easy_contact_id: nil) }
   #== Associations
   belongs_to :user
   belongs_to :easy_contact
@@ -38,7 +38,7 @@ class SipgateCallHistory < ActiveRecord::Base
   validates_uniqueness_of :call_id
   
   #== Callbacks
-  #
+  before_save :assign_easy_contact
   
   def self.load_call_history_for_user(user)
     return if user.sipgate_token.nil?
@@ -67,6 +67,11 @@ class SipgateCallHistory < ActiveRecord::Base
     self.transcription    = data['transcription']
     self.recording_url    = data['recordingUrl']
     self.duration         = data['duration']
+  end
+  
+  def assign_easy_contact
+    return if self.easy_contact_id.present?
+    self.easy_contact = EasyContact.find_by(telephone_cached: [self.target, self.source])
   end
   
   

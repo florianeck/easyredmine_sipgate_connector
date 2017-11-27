@@ -22,7 +22,7 @@ module EasyredmineSipgateConnector
     end
     
     def sipgate_active?
-      self.sipgate_user_id.present? && self.sipgate_token.present?
+      self.sipgate_user_id.present? && self.sipgate_token.present? && self.sipgate_devices.any?
     end
     
     def make_call(deviceid, callee)
