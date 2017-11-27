@@ -12,6 +12,7 @@ module EasyredmineSipgateConnector
       data = rusip_api.devices_for_user(self.sipgate_user_id)
       self.sipgate_devices = {}
       data['items'].map do |item|
+        binding.pry
         self.sipgate_devices[item['id']] = item['alias'] 
       end
     end
@@ -24,7 +25,6 @@ module EasyredmineSipgateConnector
       rusip_api.calls(deviceid, callee)
     end
     
-    private
     def rusip_api
       @_rusip_api ||= RuSip::Api.new(self.sipgate_token)
     end

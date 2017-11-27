@@ -75,6 +75,11 @@ module RuSip
       get "/#{userid}/devices"
     end
     
+    #== history
+    def history_for_user(userid)
+      get "/#{userid}/history"
+    end
+    
     #== numbers
     def numbers_for_user(userid)
       get("/#{userid}/numbers")

@@ -1,10 +1,14 @@
 <span class="sipgate-phone-container">
-  <span class="phone-placeholder device-dropdown">
-    <span class="phone-nr"><%= phone_nr %></span>
-    <span class="device-list">
-      <% User.current.sipgate_devices.each do |i, name| %>
-        <span class="call-link"><%= link_to name, sipgate_make_call_path(call: {device_id: i, callee: phone_nr}), remote: true, method: :post, class: "icon icon-phone" %></span>
-      <% end %>
+  <% if User.current.sipgate_default_device_id.nil? %>
+    <span class="phone-placeholder device-dropdown">
+      <span class="phone-nr"><%= phone_nr %></span>
+      <span class="device-list">
+        <% User.current.sipgate_devices.each do |i, name| %>
+          <span class="call-link"><%= link_to name, sipgate_make_call_path(call: {device_id: i, callee: phone_nr}), remote: true, method: :post, class: "icon icon-phone" %></span>
+        <% end %>
+      </span>
     </span>
-  </span>
+  <% else %> 
+    <%= link_to phone_nr, sipgate_make_call_path(call: {device_id: User.current.sipgate_default_device_id, callee: phone_nr}), remote: true, method: :post, class: "icon icon-phone" %>
+  <% end %>
 </span>

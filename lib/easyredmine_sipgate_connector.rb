@@ -36,9 +36,14 @@ module EasyredmineSipgateConnector
 end
 
 require "easyredmine_sipgate_connector/hooks"
+require "easyredmine_sipgate_connector/field_formats/telephone"
 require "easyredmine_sipgate_connector/user_extension"
+require "easyredmine_sipgate_connector/easy_contact_extension"
 
-User.send :include, EasyredmineSipgateConnector::UserExtension
+Rails.application.config.after_initialize do
+  User.send :include, EasyredmineSipgateConnector::UserExtension
+  EasyContact.send :include, EasyredmineSipgateConnector::EasyContactExtension
+end
 
 ApplicationController.send :include, EasyredmineSipgateHelper
 ApplicationController.send :helper, :easyredmine_sipgate
