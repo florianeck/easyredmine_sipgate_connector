@@ -6,12 +6,13 @@
     <% if @user.sipgate_active? %>
       <p>
         <%= l("rusip.labels.user_id_info", user_id: @user.sipgate_user_id) %><br>
-        <%= l("rusip.labels.available_devices") %>:
+        <!-- <%= l("rusip.labels.available_devices") %>:
         <br><br>
         <% @user.sipgate_devices.each do |did, dname| %>
           - <span><%= dname %> (<i><%= did %></i>)</span><br>
-        <% end %>
+        <% end %> -->
       </p>
+      <p><%= f.select :sipgate_default_device_id, @user.sipgate_devices.invert, {} %></p>
       <p><%= link_to l("rusip.buttons.reload_user_id"), sipgate_auth_path(from: request.url) %></p>
     <% else %>
       <p><%= l("rusip.labels.no_user_id") %></p>

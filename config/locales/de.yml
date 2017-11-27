@@ -1,6 +1,7 @@
 de:
   label_sipgate: Sipgate
   label_sipgate_status: Sipgate Status
+  field_sipgate_default_device: Genutztes Gerät wählen
   rusip:
     labels:
       user_id_info: "Sipgate User-ID: %{user_id}"

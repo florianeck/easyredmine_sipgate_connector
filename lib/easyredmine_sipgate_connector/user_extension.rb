@@ -12,9 +12,13 @@ module EasyredmineSipgateConnector
       data = rusip_api.devices_for_user(self.sipgate_user_id)
       self.sipgate_devices = {}
       data['items'].map do |item|
-        binding.pry
         self.sipgate_devices[item['id']] = item['alias'] 
       end
+      
+      if self.sipgate_default_device_id.present? && self.sipgate_devices[self.sipgate_default_device_id].nil? || self.sipgate_devices.size == 1
+        self.sipgate_default_device_id = self.sipgate_devices.keys.first
+      end
+        
     end
     
     def sipgate_active?
