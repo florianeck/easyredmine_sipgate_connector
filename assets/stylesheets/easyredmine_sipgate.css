@@ -5,3 +5,8 @@
 
 
 .sipgate-phone-container:hover .device-list { display: block; left: 0px; top: 0px;}
+
+table.call-history-details { margin-top: 5px; width: 100%;}
+table.call-history-details td { vertical-align: top;}
+
+.tab-easy_contact_call_history-content .highlight { background: #eee;}

@@ -18,6 +18,7 @@ class SipgateCallHistory < ActiveRecord::Base
   
   #== Configuration
   scope :without_easy_contact, -> { where(easy_contact_id: nil) }
+  default_scope -> { order("call_created_at DESC")}
   #== Associations
   belongs_to :user
   belongs_to :easy_contact
@@ -39,6 +40,7 @@ class SipgateCallHistory < ActiveRecord::Base
   
   #== Callbacks
   before_save :assign_easy_contact
+  after_save :set_easy_contact_issues_journal
   
   def self.load_call_history_for_user(user)
     return if user.sipgate_token.nil?
@@ -55,6 +57,13 @@ class SipgateCallHistory < ActiveRecord::Base
     end
   end
   
+  def status_label
+    [
+      I18n.t("activerecord.attributes.sipgate_call_history.call_types.#{self.call_type}"),
+      I18n.t("activerecord.attributes.sipgate_call_history.directions.#{self.direction}")
+    ].join(" - ")
+  end
+    
   def assign_history_data(data)
     self.call_id          = data['id']
     self.source           = data['source']
@@ -72,6 +81,23 @@ class SipgateCallHistory < ActiveRecord::Base
   def assign_easy_contact
     return if self.easy_contact_id.present?
     self.easy_contact = EasyContact.find_by(telephone_cached: [self.target, self.source])
+  end
+  
+  def set_easy_contact_issues_journal
+    return if self.easy_contact.nil?
+    issues = self.easy_contact.issues.open(true)
+    issues.each do |issue|
+      # skip if journal has been set
+      next if issue.journals.where(sipgate_call_history_id: self.id).any? && Rails.env.production?
+      
+      Journal.create(
+        journalized: issue,
+        user_id: self.user_id,
+        sipgate_call_history_id: self.id,
+        notes: I18n.t(:journal_note_for_call, url: "#{EasyredmineSipgateConnector.config_from_yaml['redirect_host']}/easy_contacts/#{self.easy_contact_id}?call_id=#{self.id}", status_label: self.status_label, locale: (self.user.language.presence || I18n.default_locale)),
+        created_on: self.call_created_at
+      )
+    end
   end
   
   

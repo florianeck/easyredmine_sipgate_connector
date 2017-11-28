@@ -3,6 +3,7 @@ de:
   label_sipgate_status: Sipgate Status
   label_easy_contact_call_history: Anrufverlauf
   field_sipgate_default_device: Genutztes Gerät wählen
+  journal_note_for_call: '%{status_label} | %{url}'
   rusip:
     labels:
       user_id_info: "Sipgate User-ID: %{user_id}"
@@ -11,3 +12,20 @@ de:
     buttons:
       get_user_id: "Authentifizierung durchführen"  
       reload_user_id: Geräteliste aktualisierung oder Authentifizierung erneut durchführen
+  activerecord:
+    attributes:
+      sipgate_call_history:
+        call_types:
+          CALL: Anruf
+          VOICEMAIL: Voicemail
+          SMS: SMS
+          FAX: Fax
+        directions:
+          MISSED_INCOMING: Eingehend (verpasst)  
+          INCOMING: Eingehend
+          MISSED_OUTGOING: Ausgehend (nicht erreicht)
+          OUTGOING: Ausgehend
+        duration: Anrufdauer (Min.)
+        source: von
+        target: an
+         

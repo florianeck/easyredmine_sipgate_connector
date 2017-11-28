@@ -1,0 +1,31 @@
+en:
+  label_sipgate: Sipgate
+  label_sipgate_status: Sipgate Status
+  label_easy_contact_call_history: Call History
+  field_sipgate_default_device: Choose Device
+  journal_note_for_call: '%{status_label} | %{url} '
+  rusip:
+    labels:
+      user_id_info: "Sipgate User-ID: %{user_id}"
+      no_user_id: "no Sipgate User-ID available"
+      available_devices: Avialable Devices
+    buttons:
+      get_user_id: "Authenticate"  
+      reload_user_id: Geräteliste aktualisierung oder Authentifizierung erneut durchführen
+  activerecord:
+    attributes:
+      sipgate_call_history:
+        call_types:
+          CALL: Call
+          VOICEMAIL: Voicemail
+          SMS: SMS
+          FAX: Fax
+        directions:
+          MISSED_INCOMING: Incoming (missed)  
+          INCOMING: Incoming
+          MISSED_OUTGOING: Outgoing (missed)
+          OUTGOING: Outgoing
+        duration: Duration (Min.)
+        source: from
+        target: to
+         

@@ -1,7 +1,47 @@
-<table>
-  <% @easy_contact.sipgate_call_histories.each do |hist| %>
-    <tr>
-      <td><%= hist.call_created_at %></td>
-    </tr>
-  <% end %>
-</table>
+<% @easy_contact.sipgate_call_histories.each do |hist| %>
+  <div id="call-<%= hist.id %>" class="message <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
+    <%= avatar(hist.user, :size => "24") %>
+    <div class="journal-details-container call-history">
+
+      <h5 class="journal-byline easy-panel-handler-container">
+        <%= link_to_user hist.user %>
+        <span class="journal-timestamp"><%= format_time hist.call_created_at %></span>
+      </h5>
+      <div class="wiki">
+        <%=  image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %>
+        <table class="call-history-details">
+          <tr>
+            <td><%= hist.class.human_attribute_name(:source) %>:</td>
+            <td>
+              <%= hist.source %><br>
+              <%= hist.source_alias %>
+            </td>
+            <td><%= hist.class.human_attribute_name(:target) %>:</td>
+            <td>  
+              <%= hist.target %><br>
+              <%= hist.target_alias %>
+            </td>
+            <td>
+              <%= hist.class.human_attribute_name(:duration) %>:<br>
+              <%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %>
+            </td>
+          </tr>
+        </table>
+      </div>  
+    </div>
+  </div>
+
+
+<% end %>
+
+<% if params[:call_id] %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      setTimeout(function(){ 
+        EntityTabs.showTab($("[data-tab-id='tab-easy_contact_call_history']"));
+      }, 250);
+      
+    });
+  </script>
+<% end %>
+
