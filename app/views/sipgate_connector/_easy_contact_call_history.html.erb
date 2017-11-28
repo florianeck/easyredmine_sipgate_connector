@@ -1,0 +1,7 @@
+<table>
+  <% @easy_contact.sipgate_call_histories.each do |hist| %>
+    <tr>
+      <td><%= hist.call_created_at %></td>
+    </tr>
+  <% end %>
+</table>

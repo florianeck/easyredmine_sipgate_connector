@@ -5,6 +5,7 @@ module EasyredmineSipgateConnector
     
     included do
       before_save :store_cached_telephone
+      has_many :sipgate_call_histories
     end
     
     def telephone

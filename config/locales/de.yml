@@ -1,6 +1,7 @@
 de:
   label_sipgate: Sipgate
   label_sipgate_status: Sipgate Status
+  label_easy_contact_call_history: Anrufverlauf
   field_sipgate_default_device: Genutztes Gerät wählen
   rusip:
     labels:
