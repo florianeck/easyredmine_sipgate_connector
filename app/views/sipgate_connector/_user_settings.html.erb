@@ -1,5 +1,3 @@
-<%= labelled_form_for :user, @user, :url => {:controller => 'users', :action => 'update', :id => @user}, :html => {:method => :put, :autocomplete => 'off', :multipart => true,:class =>'form-box'} do |f| %>
-  
   <fieldset class="box tabular">
     <legend><%=l(:label_sipgate_status)%></legend>
     
@@ -12,15 +10,10 @@
           - <span><%= dname %> (<i><%= did %></i>)</span><br>
         <% end %> -->
       </p>
-      <p><%= f.select :sipgate_default_device_id, @user.sipgate_devices.invert, {} %></p>
+      <p><%= form.select :sipgate_default_device_id, @user.sipgate_devices.invert, {} %></p>
       <p><%= link_to l("rusip.buttons.reload_user_id"), sipgate_auth_path(from: request.url) %></p>
     <% else %>
       <p><%= l("rusip.labels.no_user_id") %></p>
       <p><%= link_to l("rusip.buttons.get_user_id"), sipgate_auth_path(from: request.url) %></p>
     <% end %>
   </fieldset>
-  
-  <div class="form-actions">
-    <%= submit_tag l(:button_save), :class => 'button-positive' %>
-  </div>
-<% end %>

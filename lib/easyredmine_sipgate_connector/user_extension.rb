@@ -5,6 +5,7 @@ module EasyredmineSipgateConnector
     
     included do
       serialize :sipgate_devices
+      safe_attributes :sipgate_default_device_id
     end
     
     def reload_sipgate_devices
