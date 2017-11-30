@@ -10,7 +10,7 @@
           - <span><%= dname %> (<i><%= did %></i>)</span><br>
         <% end %> -->
       </p>
-      <p><%= form.select :sipgate_default_device_id, @user.sipgate_devices.invert, {} %></p>
+      <p><%= form.select :sipgate_default_device_id, @user.sipgate_devices.invert, { include_blank: true } %></p>
       <p><%= link_to l("rusip.buttons.reload_user_id"), sipgate_auth_path(from: request.url) %></p>
     <% else %>
       <p><%= l("rusip.labels.no_user_id") %></p>

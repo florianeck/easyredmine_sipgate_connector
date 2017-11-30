@@ -76,8 +76,8 @@ module RuSip
     end
     
     #== history
-    def history_for_user(userid)
-      get "/#{userid}/history"
+    def history_for_user(userid, params = {})
+      get "/#{userid}/history", params
     end
     
     #== numbers
@@ -100,12 +100,12 @@ module RuSip
     
     private
     
-    def get(path)
-      JSON.parse(RestClient.get(url(path), headers))
+    def get(path, params = {})
+      JSON.parse(RestClient.get(url(path), headers.merge(params: params)))
     end
     
-    def post(path, data)
-      RestClient.post(url(path), data.to_json, headers) do |response|
+    def post(path, params)
+      RestClient.post(url(path), params.to_json, headers) do |response|
         response
       end
     end

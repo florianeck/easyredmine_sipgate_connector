@@ -44,17 +44,23 @@ class SipgateCallHistory < ActiveRecord::Base
   
   def self.load_call_history_for_user(user)
     return if user.sipgate_token.nil?
-    current_history = user.rusip_api.history_for_user(user.sipgate_user_id)['items']
-    
+    current_offset = 0
+    page_size = EasyredmineSipgateConnector.history_page_size
     stored_call_ids = self.where(user_id: user.id).pluck(:call_id)
-    current_history.each do |history_data|
-      # skip database call for existing entries
-      next if stored_call_ids.include?(history_data['id'].to_i)
+    current_history = user.rusip_api.history_for_user(user.sipgate_user_id, offset: current_offset, limit: page_size)['items']
+    
+    while current_history.size > 0
+      current_history.each do |history_data|
+        # skip database call for existing entries
+        break if stored_call_ids.include?(history_data['id'].to_i)
       
-      history_entry = self.new(user_id: user.id)
-      history_entry.assign_history_data(history_data)
-      history_entry.save
-    end
+        history_entry = self.new(user_id: user.id)
+        history_entry.assign_history_data(history_data)
+        history_entry.save
+      end
+      current_offset += page_size
+      current_history = user.rusip_api.history_for_user(user.sipgate_user_id, offset: current_offset, limit: page_size)['items']
+    end  
   end
   
   def status_label

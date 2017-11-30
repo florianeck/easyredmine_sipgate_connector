@@ -24,6 +24,10 @@
             <td>
               <%= hist.class.human_attribute_name(:duration) %>:<br>
               <%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %>
+              <% if hist.transcription.present? %>
+                <%= hist.class.human_attribute_name(:transcription) %>:<br>
+                <%= hist.transcription %>
+              <% end %>
             </td>
           </tr>
         </table>
@@ -44,4 +48,5 @@
     });
   </script>
 <% end %>
+
 
