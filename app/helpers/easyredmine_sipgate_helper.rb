@@ -4,7 +4,7 @@ module EasyredmineSipgateHelper
     if phone_nr.present? && User.current.sipgate_active?
       render "sipgate_connector/make_call_link", phone_nr: phone_nr
     else
-      contant_tag :span, phone_nr, class: 'sipgate-phone-container phone-placeholder'
+      content_tag :span, phone_nr, class: 'sipgate-phone-container phone-placeholder'
     end
   end
   
