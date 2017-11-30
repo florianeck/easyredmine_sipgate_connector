@@ -4,6 +4,7 @@ en:
   label_easy_contact_call_history: Call History
   field_sipgate_default_device: Choose Device
   journal_note_for_call: '%{status_label} | %{url} '
+  label_telephone: Phone Number
   rusip:
     labels:
       user_id_info: "Sipgate User-ID: %{user_id}"
