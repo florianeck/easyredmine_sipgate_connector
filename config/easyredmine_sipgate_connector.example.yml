@@ -8,3 +8,8 @@ client_secret: your-client-secrect
 # this is where the Sipgate auth process will redirect the user after sign in
 # please omit the trailing '/'
 redirect_host: http://localhost:3000
+
+
+# Min duration of calls for being assigned to tickets
+min_call_duration_for_issue_assignment: 10
+call_types_for_issue_assignment: [CALL]

@@ -99,21 +99,32 @@ class SipgateCallHistory < ActiveRecord::Base
     self.easy_contact = EasyContact.find_by(telephone_cached: [self.target, self.source])
   end
   
+  # nur calls
+  # nur wenn dauer > 10
+  # nur wenn call  nach erstellung des tickets
+  
   def set_easy_contact_issues_journal
-    return if self.easy_contact.nil?
-    issues = self.easy_contact.issues.open(true)
-    issues.each do |issue|
-      # skip if journal has been set
-      next if issue.journals.where(sipgate_call_history_id: self.id).any? && Rails.env.production?
-      
-      Journal.create(
-        journalized: issue,
-        user_id: self.user_id,
-        sipgate_call_history_id: self.id,
-        notes: I18n.t(:journal_note_for_call, url: "#{EasyredmineSipgateConnector.config_from_yaml['redirect_host']}/easy_contacts/#{self.easy_contact_id}?call_id=#{self.id}", status_label: self.status_label, locale: (self.user.language.presence || I18n.default_locale)),
-        created_on: self.call_created_at
-      )
-    end
+    if self.assignable_to_issue?
+      issues = self.easy_contact.issues.open(true).where("created_on >= ?", self.call_created_at)
+      issues.each do |issue|
+        # skip if journal has been set
+        next if issue.journals.where(sipgate_call_history_id: self.id).any? && Rails.env.production?
+        
+        Journal.create(
+          journalized: issue,
+          user_id: self.user_id,
+          sipgate_call_history_id: self.id,
+          notes: I18n.t(:journal_note_for_call, url: "#{EasyredmineSipgateConnector.config_from_yaml['redirect_host']}/easy_contacts/#{self.easy_contact_id}?call_id=#{self.id}", status_label: self.status_label, locale: (self.user.language.presence || I18n.default_locale)),
+          created_on: self.call_created_at
+        )
+      end
+    end  
+  end
+  
+  def assignable_to_issue?
+    self.easy_contact.present? && 
+    self.duration >= EasyredmineSipgateConnector.min_call_duration_for_issue_assignment && 
+    EasyredmineSipgateConnector.call_types_for_issue_assignment.include?(self.call_type)  
   end
   
   

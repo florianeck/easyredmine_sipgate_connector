@@ -20,6 +20,14 @@ module EasyredmineSipgateConnector
       10
     end
     
+    def min_call_duration_for_issue_assignment
+      config_from_yaml.fetch('min_call_duration_for_issue_assignment', 10).to_i
+    end
+    
+    def call_types_for_issue_assignment
+      config_from_yaml.fetch('call_types_for_issue_assignment', ['CALL'])
+    end
+    
     def scope
       'all'
     end

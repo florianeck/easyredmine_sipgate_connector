@@ -6,8 +6,10 @@
 
 .sipgate-phone-container:hover .device-list { display: block; left: 0px; top: 0px;}
 
-table.call-history-details { margin-top: 5px; width: 100%;}
-table.call-history-details td { vertical-align: top;}
+table.call-history-details { margin-top: 5px; width: 100%; margin-bottom: 5px;}
+table.call-history-details td,
+table.call-history-details th { vertical-align: top; padding: 5px;}
+table.call-history-details td { border-bottom: solid 1px #eee;}
 td.call-data-no-wrap { white-space: nowrap;}
 
 .tab-easy_contact_call_history-content .highlight { background: #eee;}
