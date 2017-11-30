@@ -4,7 +4,7 @@ module EasyredmineSipgateConnector
     extend ActiveSupport::Concern
     
     included do
-      before_save :store_cached_telephone
+      after_save :store_cached_telephone
       has_many :sipgate_call_histories
     end
     
@@ -15,7 +15,8 @@ module EasyredmineSipgateConnector
     private
     
     def store_cached_telephone
-      self.telephone_cached = self.telephone.gsub(/[\ \-\.\/]/, '')
+      phone_vals = self.custom_values.select {|f| f.custom_field.field_format == 'telephone' }.map {|f| f.value }
+      self.update_column :telephone_cached, phone_vals.map {|v| v.gsub(/[\ \-\.\/]/, '') }.join(" ") 
     end
       
   end

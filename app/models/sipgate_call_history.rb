@@ -96,7 +96,7 @@ class SipgateCallHistory < ActiveRecord::Base
   
   def assign_easy_contact
     return if self.easy_contact_id.present?
-    self.easy_contact = EasyContact.find_by(telephone_cached: [self.target, self.source])
+    self.easy_contact = EasyContact.where("telephone_cached LIKE '%#{self.target}%' OR telephone_cached LIKE '%#{self.source}%'").first
   end
   
   # nur calls
