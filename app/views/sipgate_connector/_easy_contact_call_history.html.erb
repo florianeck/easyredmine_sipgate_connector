@@ -1,42 +1,39 @@
-<% @easy_contact.sipgate_call_histories.each do |hist| %>
-  <div id="call-<%= hist.id %>" class="message <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
-    <%= avatar(hist.user, :size => "24") %>
-    <div class="journal-details-container call-history">
+<table class="dataTable call-history-details">
+  <thead>
+    <tr>
+      <th><%= l(:label_user) %></th>
+      <th><%= l(:label_created) %></th>
+      <th></th>
+      <th><%= SipgateCallHistory.human_attribute_name(:source) %></th>
+      <th><%= SipgateCallHistory.human_attribute_name(:target) %></th>
+      <th><%= SipgateCallHistory.human_attribute_name(:duration) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <% @easy_contact.sipgate_call_histories.each do |hist| %>
+  
+    <tr id="call-<%= hist.id %>" class="<%= hist.direction.downcase %> <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
+      <td><%= avatar(hist.user, :size => "24") %>&nbsp;<%= link_to_user hist.user %></td>  
+      <td class="call-data-no-wrap"><%= format_time hist.call_created_at %></td>
+      <td class="call-data-no-wrap"><%=  image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %></td>
+      <td>
+        <%= hist.source %><br>
+        <%= hist.source_alias %>
+      </td>
+      <td>  
+        <%= hist.target %><br>
+        <%= hist.target_alias %>
+      </td>
+      <td><%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %></td>
+      <td>
+        <% if hist.transcription.present? %>
+          <span class="icon icon-slab" title="<%= hist.transcription %>">&nbsp;</span>
+        <% end %>
+      </td>
+    </tr>  
+  <% end %>
+</table>
 
-      <h5 class="journal-byline easy-panel-handler-container">
-        <%= link_to_user hist.user %>
-        <span class="journal-timestamp"><%= format_time hist.call_created_at %></span>
-      </h5>
-      <div class="wiki">
-        <%=  image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %>
-        <table class="call-history-details">
-          <tr>
-            <td><%= hist.class.human_attribute_name(:source) %>:</td>
-            <td>
-              <%= hist.source %><br>
-              <%= hist.source_alias %>
-            </td>
-            <td><%= hist.class.human_attribute_name(:target) %>:</td>
-            <td>  
-              <%= hist.target %><br>
-              <%= hist.target_alias %>
-            </td>
-            <td>
-              <%= hist.class.human_attribute_name(:duration) %>:<br>
-              <%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %>
-              <% if hist.transcription.present? %>
-                <%= hist.class.human_attribute_name(:transcription) %>:<br>
-                <%= hist.transcription %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
-      </div>  
-    </div>
-  </div>
-
-
-<% end %>
 
 <% if params[:call_id] %>
   <script type="text/javascript">

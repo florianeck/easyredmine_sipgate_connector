@@ -8,5 +8,6 @@
 
 table.call-history-details { margin-top: 5px; width: 100%;}
 table.call-history-details td { vertical-align: top;}
+td.call-data-no-wrap { white-space: nowrap;}
 
 .tab-easy_contact_call_history-content .highlight { background: #eee;}

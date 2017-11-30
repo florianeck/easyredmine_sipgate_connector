@@ -59,7 +59,17 @@ class SipgateCallHistory < ActiveRecord::Base
         history_entry.save
       end
       current_offset += page_size
-      current_history = user.rusip_api.history_for_user(user.sipgate_user_id, offset: current_offset, limit: page_size)['items']
+      current_history = nil
+      
+      while current_history.nil? && page_size > 1
+        begin
+          current_history = user.rusip_api.history_for_user(user.sipgate_user_id, offset: current_offset, limit: page_size)['items']  
+        rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
+          puts "Reducing page size because of #{e.name}"
+          page_size = page_size/2
+          sleep 3
+        end
+      end  
     end  
   end
   

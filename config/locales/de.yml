@@ -26,7 +26,7 @@ de:
           INCOMING: Eingehend
           MISSED_OUTGOING: Ausgehend (nicht erreicht)
           OUTGOING: Ausgehend
-        duration: Anrufdauer (Min.)
+        duration: Dauer (Min.)
         source: von
         target: an
          
