@@ -18,11 +18,11 @@
       <td class="call-data-no-wrap"><%=  image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %></td>
       <td>
         <%= hist.internal_caller[:nr] %><br>
-        <%= hist.internal_caller[:name] %>
+        <%#= hist.internal_caller[:name] %>
       </td>
       <td>  
         <%= hist.external_caller[:nr] %><br>
-        <%= hist.external_caller[:name] %>
+        <%#= hist.external_caller[:name] %>
       </td>
       <td><%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %></td>
       <td>
