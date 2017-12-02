@@ -12,4 +12,13 @@ namespace :sipgate do
     SipgateCallHistory.without_easy_contact.each(&:save)
   end
   
+  desc "Load and Assign call histories"
+  task :sipgate_sync => :environment do
+    User.where.not(sipgate_user_id: nil).each do |user|
+      SipgateCallHistory.load_call_history_for_user(user)
+    end
+    SipgateCallHistory.without_easy_contact.each(&:save)
+  end
+  
+  
 end

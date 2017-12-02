@@ -100,7 +100,7 @@ class SipgateCallHistory < ActiveRecord::Base
   
   def assign_easy_contact
     return if self.easy_contact_id.present?
-    self.easy_contact = EasyContact.where("telephone_cached LIKE '%#{self.target}%' OR telephone_cached LIKE '%#{self.source}%'").first
+    self.easy_contact = EasyContact.where("telephone_cached LIKE '%#{self.external_caller[:nr]}%'").first
   end
   
   # nur calls
@@ -123,6 +123,22 @@ class SipgateCallHistory < ActiveRecord::Base
         )
       end
     end  
+  end
+  
+  def external_caller
+    if self.direction.match(/OUT/)
+      { nr: self.target, name: self.target_alias }
+    else
+      { nr: self.source, name: self.source_alias }
+    end
+  end
+  
+  def internal_caller
+    if self.direction.match(/INCOMING/)
+      { nr: self.source, name: self.source_alias }      
+    else
+      { nr: self.target, name: self.target_alias }
+    end
   end
   
   def assignable_to_issue?

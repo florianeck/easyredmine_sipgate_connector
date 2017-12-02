@@ -29,4 +29,6 @@ de:
         duration: Dauer (Min.)
         source: von
         target: an
+        internal_caller: Intern
+        external_caller: Extern 
          

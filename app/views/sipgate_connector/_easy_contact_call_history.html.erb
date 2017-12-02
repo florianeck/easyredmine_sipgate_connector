@@ -4,8 +4,8 @@
       <th><%= l(:label_user) %></th>
       <th><%= l(:label_created) %></th>
       <th></th>
-      <th><%= SipgateCallHistory.human_attribute_name(:source) %></th>
-      <th><%= SipgateCallHistory.human_attribute_name(:target) %></th>
+      <th><%= SipgateCallHistory.human_attribute_name(:internal_caller) %></th>
+      <th><%= SipgateCallHistory.human_attribute_name(:external_caller) %></th>
       <th><%= SipgateCallHistory.human_attribute_name(:duration) %></th>
       <th></th>
     </tr>
@@ -17,12 +17,12 @@
       <td class="call-data-no-wrap"><%= format_time hist.call_created_at %></td>
       <td class="call-data-no-wrap"><%=  image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %></td>
       <td>
-        <%= hist.source %><br>
-        <%= hist.source_alias %>
+        <%= hist.internal_caller[:nr] %><br>
+        <%= hist.internal_caller[:name] %>
       </td>
       <td>  
-        <%= hist.target %><br>
-        <%= hist.target_alias %>
+        <%= hist.external_caller[:nr] %><br>
+        <%= hist.external_caller[:name] %>
       </td>
       <td><%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %></td>
       <td>
