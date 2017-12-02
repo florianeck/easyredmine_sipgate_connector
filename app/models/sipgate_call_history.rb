@@ -53,7 +53,7 @@ class SipgateCallHistory < ActiveRecord::Base
     while (current_history.present? && current_history.size > 0) && found_existing == false
       current_history.each do |history_data|
         # skip database call for existing entries
-        if stored_call_ids.include?(history_data['id'].to_i)
+        if stored_call_ids.include?(history_data['id'])
           found_existing = true
           break
         end
