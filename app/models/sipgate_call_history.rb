@@ -135,9 +135,9 @@ class SipgateCallHistory < ActiveRecord::Base
   
   def internal_caller
     if self.direction.match(/INCOMING/)
-      { nr: self.source, name: self.source_alias }      
+      { nr: self.target, name: self.target_alias }  
     else
-      { nr: self.target, name: self.target_alias }
+      { nr: self.source, name: self.source_alias }      
     end
   end
   
