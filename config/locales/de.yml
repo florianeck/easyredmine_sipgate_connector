@@ -13,6 +13,7 @@ de:
     buttons:
       get_user_id: "Authentifizierung durchführen"  
       reload_user_id: Geräteliste aktualisierung oder Authentifizierung erneut durchführen
+      unassigned_calls: Nicht zugewiesene Anrufe
   activerecord:
     attributes:
       sipgate_call_history:

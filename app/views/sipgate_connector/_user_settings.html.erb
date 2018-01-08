@@ -12,6 +12,7 @@
       </p>
       <p><%= form.select :sipgate_default_device_id, @user.sipgate_devices.invert, { include_blank: true } %></p>
       <p><%= link_to l("rusip.buttons.reload_user_id"), sipgate_auth_path(from: request.url) %></p>
+      <p><%= link_to l("rusip.buttons.unassigned_calls"), sipgate_unassigned_calls_path %></p>
     <% else %>
       <p><%= l("rusip.labels.no_user_id") %></p>
       <p><%= link_to l("rusip.buttons.get_user_id"), sipgate_auth_path(from: request.url) %></p>

@@ -30,6 +30,13 @@ class SipgateConnectorController < ApplicationController
     render status: resp.code, text: resp.body
   end
   
+  def unassigned_calls
+    @calls = SipgateCallHistory.where(user_id: User.current.id, easy_contact_id: nil)
+  end
+  
+  def set_private
+  end
+  
   private 
   
   def rusip_auth
