@@ -17,8 +17,10 @@ class SipgateCallHistory < ActiveRecord::Base
   # integer   :duration         # => call duration in seconds
   
   #== Configuration
+  
   scope :without_easy_contact, -> { where(easy_contact_id: nil) }
-  default_scope -> { order("call_created_at DESC")}
+  default_scope -> { order("call_created_at DESC") }
+  
   #== Associations
   belongs_to :user
   belongs_to :easy_contact
@@ -39,7 +41,7 @@ class SipgateCallHistory < ActiveRecord::Base
   validates_uniqueness_of :call_id
   
   #== Callbacks
-  before_save :assign_easy_contact
+  before_save :assign_easy_contact, :set_external_and_private_flag
   after_save :set_easy_contact_issues_journal
   
   def self.load_call_history_for_user(user)
@@ -139,6 +141,13 @@ class SipgateCallHistory < ActiveRecord::Base
     else
       { nr: self.source, name: self.source_alias }      
     end
+  end
+  
+  def set_external_and_private_flag
+    self.external_number = external_caller[:nr]
+    self.private_call = self.class.where(private_call: true, external_number: self.external_number).any?
+    
+    return true
   end
   
   def assignable_to_issue?

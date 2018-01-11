@@ -9,7 +9,7 @@
   <%= link_to t("rusip.buttons.show_private_calls"), {show_private: 1} %>
 <% end %>
 
-<%= form_for :calls, url: {action: 'toggle_call_status'} do |f| %>
+<%= form_for :call_list, url: {action: 'toggle_call_status', set_private: !@show_private} do |f| %>
   <table class="dataTable call-history-details">
     <thead>
       <tr>
@@ -19,7 +19,7 @@
         <th></th>
       </tr>
     </thead>
-    <% [@calls_out, @calls_in].flatten.each do |hist| %>
+    <% [@calls].flatten.each do |hist| %>
   
       <tr id="call-<%= hist.id %>" class="<%= hist.direction.downcase %> <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
         <td><%= f.check_box hist.id %></td>  
@@ -34,9 +34,9 @@
   </table>
   
   <% if @show_private %>
-    <%= f.submit t("rusip.buttons.mark_as_public") %>
+    <%= f.submit t("rusip.buttons.mark_as_public"), name: 'public' %>
   <% else %>
-    <%= f.submit t("rusip.buttons.mark_as_private") %>
+    <%= f.submit t("rusip.buttons.mark_as_private"), name: 'private' %>
   <% end %>
 <% end %>
 

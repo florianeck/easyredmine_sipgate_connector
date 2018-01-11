@@ -32,23 +32,21 @@ class SipgateConnectorController < ApplicationController
   
   def unassigned_calls
     @show_private = (params[:show_private] == '1')
-    @calls_out = SipgateCallHistory.where(private_call: @show_private, user_id: User.current.id, easy_contact_id: nil).where("direction LIKE '%OUT%'").group(:target)
-    @calls_in  = SipgateCallHistory.where(private_call: @show_private, user_id: User.current.id, easy_contact_id: nil).where("direction LIKE '%INC%'").group(:source)
+    @calls = SipgateCallHistory.where(private_call: @show_private, user_id: User.current.id, easy_contact_id: nil).group(:external_number)
   end
   
   def toggle_call_status
     ids = []
-    params[:calls].each do |i,v|
-      ids << i if v == '1'
+    params[:call_list].each do |i,v|
+      next if v == "0"
+      call = SipgateCallHistory.where(user_id: User.current.id, id: i).first
+      if call
+        call_group = SipgateCallHistory.where(external_number: call.external_number)
+        call_group.update_all(private_call: (params[:set_private] == 'true'))
+      end
     end
     
-    calls = SipgateCallHistory.where(user_id: User.current.id, id: ids)
-    calls.each {|c| c.toggle!(:private_call) }
-    
     redirect_to action: 'unassigned_calls'
-  end
-  
-  def set_private
   end
   
   private 
