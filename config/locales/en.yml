@@ -13,6 +13,11 @@ en:
     buttons:
       get_user_id: "Authenticate"  
       reload_user_id: Geräteliste aktualisierung oder Authentifizierung erneut durchführen
+      unassigned_calls: Unassigned calls
+      hide_private_calls: Hide private calls
+      show_private_calls: Show private calls
+      mark_as_private: mark as private
+      mark_as_public: mark as not private
   activerecord:
     attributes:
       sipgate_call_history:

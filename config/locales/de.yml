@@ -14,6 +14,10 @@ de:
       get_user_id: "Authentifizierung durchführen"  
       reload_user_id: Geräteliste aktualisierung oder Authentifizierung erneut durchführen
       unassigned_calls: Nicht zugewiesene Anrufe
+      hide_private_calls: Private Anrufe ausblenden
+      show_private_calls: Private Anrufe einblenden
+      mark_as_private: Als privat markieren
+      mark_as_public: Als nicht privat markieren     
   activerecord:
     attributes:
       sipgate_call_history:

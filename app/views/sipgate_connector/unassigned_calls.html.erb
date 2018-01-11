@@ -1,2 +1,46 @@
-<%= link_to "Zurück", :back, class: "icon icon-back button-positive" %>
-<%= render "sipgate_connector/easy_contact_call_history" %>
+<div style="padding: 5px">
+  
+
+<%= link_to t(:button_back), {:controller => 'my', :action => 'account'}, class: "icon icon-back button-positive" %>
+
+<% if @show_private %>
+  <%= link_to t("rusip.buttons.hide_private_calls"), {show_private: 0} %>
+<% else %>
+  <%= link_to t("rusip.buttons.show_private_calls"), {show_private: 1} %>
+<% end %>
+
+<%= form_for :calls, url: {action: 'toggle_call_status'} do |f| %>
+  <table class="dataTable call-history-details">
+    <thead>
+      <tr>
+        <th></th>
+        <th><%= SipgateCallHistory.human_attribute_name(:external_caller) %></th>
+        <th><%= SipgateCallHistory.human_attribute_name(:duration) %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <% [@calls_out, @calls_in].flatten.each do |hist| %>
+  
+      <tr id="call-<%= hist.id %>" class="<%= hist.direction.downcase %> <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
+        <td><%= f.check_box hist.id %></td>  
+        <td class="call-data-no-wrap"><%=  image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %></td>
+        <td>  
+          <%= hist.external_caller[:nr] %><br>
+          <%#= hist.external_caller[:name] %>
+        </td>
+        <td><%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %></td>
+      </tr>  
+    <% end %>
+  </table>
+  
+  <% if @show_private %>
+    <%= f.submit t("rusip.buttons.mark_as_public") %>
+  <% else %>
+    <%= f.submit t("rusip.buttons.mark_as_private") %>
+  <% end %>
+<% end %>
+
+
+
+
+</div>
