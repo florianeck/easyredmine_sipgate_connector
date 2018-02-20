@@ -43,6 +43,7 @@ class SipgateCallHistory < ActiveRecord::Base
   #== Callbacks
   before_save :assign_easy_contact, :set_external_and_private_flag
   after_save :set_easy_contact_issues_journal
+  after_save :delete_history_from_sipgate_server, if: :sipgate_delete_after_fetch?
   
   def self.load_call_history_for_user(user)
     return if user.sipgate_token.nil?
@@ -154,6 +155,18 @@ class SipgateCallHistory < ActiveRecord::Base
     self.easy_contact.present? && 
     self.duration >= EasyredmineSipgateConnector.min_call_duration_for_issue_assignment && 
     EasyredmineSipgateConnector.call_types_for_issue_assignment.include?(self.call_type)  
+  end
+  
+  def sipgate_delete_after_fetch?
+    self.user.try(:sipgate_delete_after_fetch?)
+  end
+  
+  def delete_history_from_sipgate_server
+    begin
+      self.user.rusip_api.history_delete(self.user.sipgate_user_id, self.call_id)
+    rescue Exception => e
+      puts e.message
+    end
   end
   
   
