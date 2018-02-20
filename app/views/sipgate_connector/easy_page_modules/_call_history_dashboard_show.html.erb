@@ -1,0 +1,13 @@
+<table class="dataTable call-history-details">
+  <thead>
+    <tr>
+      <th><%= l(:label_created) %></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  
+  <tbody id="dashboard_call_history">
+    <%= render "sipgate_connector/easy_page_modules/sipgate_call_history_rows", current_entries: SipgateCallHistory.where(user_id: User.current.id).limit(15) %>
+  </tbody>
+</table>

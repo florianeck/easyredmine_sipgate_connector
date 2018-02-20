@@ -1,0 +1,15 @@
+<% current_entries.each do |hist| %>
+  <tr id="call-<%= hist.id %>" class="<%= hist.direction.downcase %> <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
+    <td class="call-data-no-wrap"><%= format_time hist.call_created_at %></td>
+    <td class="call-data-no-wrap">
+      <% if hist.easy_contact.present? %>
+        <%= link_to hist.easy_contact, easy_contact_path(hist.easy_contact) %><br>
+      <% end %>
+      <%= link_to_if hist.easy_contact.nil?,  hist.external_caller[:nr], sipgate_unassigned_calls_path %>
+      <br>
+      <%= image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %>
+    </td>
+
+    <td><%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %></td>
+  </tr>  
+<% end %>

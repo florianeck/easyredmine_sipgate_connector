@@ -7,7 +7,8 @@
 - https://developer.sipgate.io/docs/authentication
 - [Setting up clients to get _client_id_ and _client_secret_](https://api.sipgate.com/developer)
   
-  
+## Setup
+- EasyPageModule.install_all_registered_modules  
 
 ## Info
 
@@ -24,3 +25,4 @@ This Plugin only works with easy redmine.
 - Setting fpür User: delete after fetch, wenn ja, einträge nach speichern löschen, und bisher geladene ignorieren
 - Call History als Dashboard Element
 
+- 

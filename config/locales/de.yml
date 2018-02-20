@@ -6,6 +6,9 @@ de:
   field_sipgate_delete_after_fetch: "Anrufverlauf nach Import von Sipgate Server löschen?"
   journal_note_for_call: '%{status_label} | %{url}'
   label_telephone: Telefonnummer
+  easy_pages:
+    modules:
+      sipgate_call_history_dashboard: Sipgate - Anrufverlauf
   rusip:
     labels:
       user_id_info: "Sipgate User-ID: %{user_id}"
