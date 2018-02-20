@@ -3,6 +3,7 @@ de:
   label_sipgate_status: Sipgate Status
   label_easy_contact_call_history: Anrufverlauf
   field_sipgate_default_device: Genutztes Gerät wählen
+  field_sipgate_delete_after_fetch: "Anrufverlauf nach Import von Sipgate Server löschen?"
   journal_note_for_call: '%{status_label} | %{url}'
   label_telephone: Telefonnummer
   rusip:
