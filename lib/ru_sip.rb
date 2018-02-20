@@ -80,6 +80,10 @@ module RuSip
       get "/#{userid}/history", params
     end
     
+    def history_delete(userId, entryId)
+      delete "/#{userid}/history/#{entryId}"
+    end
+    
     #== numbers
     def numbers_for_user(userid)
       get("/#{userid}/numbers")
@@ -108,6 +112,10 @@ module RuSip
       RestClient.post(url(path), params.to_json, headers) do |response|
         response
       end
+    end
+    
+    def delete(path)
+      RestClient.delete(url(path), headers)
     end
     
     def url(path)
