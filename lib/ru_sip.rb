@@ -81,7 +81,7 @@ module RuSip
     end
     
     def history_delete(userId, entryId)
-      delete "/#{userid}/history/#{entryId}"
+      delete "/#{userId}/history/#{entryId}"
     end
     
     #== numbers

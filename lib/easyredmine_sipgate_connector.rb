@@ -51,6 +51,7 @@ require "easyredmine_sipgate_connector/hooks"
 require "easyredmine_sipgate_connector/field_formats/telephone"
 require "easyredmine_sipgate_connector/user_extension"
 require "easyredmine_sipgate_connector/easy_contact_extension"
+require "easyredmine_sipgate_connector/sipgate_call_history_dashboard"
 
 Rails.application.config.after_initialize do
   User.send :include, EasyredmineSipgateConnector::UserExtension
