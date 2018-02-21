@@ -21,8 +21,6 @@ This Plugin only works with easy redmine.
 
 
 ## TODO
-- delete task für history (alle calls löschen)
-- Setting fpür User: delete after fetch, wenn ja, einträge nach speichern löschen, und bisher geladene ignorieren
-- Call History als Dashboard Element
-
+- link auf telefon nummer
+- widget muss sich auf breite anpassen
 - 

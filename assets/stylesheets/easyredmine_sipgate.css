@@ -13,3 +13,19 @@ table.call-history-details td { border-bottom: solid 1px #eee;}
 td.call-data-no-wrap { white-space: nowrap;}
 
 .tab-easy_contact_call_history-content .highlight { background: #eee;}
+
+.call-history-dashboard-row { padding: 5px; border-bottom: solid 1px #eee;}
+
+.call-history-dashboard-row .call-entry-field { display: inline-block;}
+#list-top .call-history-dashboard-row .call-entry-field {text-align: left;}
+#list-top .call-history-dashboard-row .call-created-at { width: 10%; min-width: 150px;}
+#list-top .call-history-dashboard-row .call-contact,
+#list-top .call-history-dashboard-row .call-phone-nr { width: 15%;  }
+#list-top .call-history-dashboard-row .call-status { width: 25%; }
+
+.call-history-dashboard-row .call-created-at { width: 25% }
+.call-history-dashboard-row .call-contact,
+.call-history-dashboard-row .call-phone-nr { width: 35%; }
+.call-history-dashboard-row .call-phone-nr { text-align: right;}
+.call-history-dashboard-row .call-status { width: 70%; }
+.call-history-dashboard-row .call-duration { width: 29%; text-align: right;}
