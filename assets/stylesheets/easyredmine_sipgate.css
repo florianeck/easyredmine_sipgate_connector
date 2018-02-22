@@ -29,3 +29,5 @@ td.call-data-no-wrap { white-space: nowrap;}
 .call-history-dashboard-row .call-phone-nr { text-align: right;}
 .call-history-dashboard-row .call-status { width: 70%; }
 .call-history-dashboard-row .call-duration { width: 29%; text-align: right;}
+
+#sipgate_per_page { width: 60px;}

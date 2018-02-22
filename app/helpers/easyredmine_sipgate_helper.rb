@@ -8,4 +8,8 @@ module EasyredmineSipgateHelper
     end
   end
   
+  def sipgate_per_page
+    (session[:sipgate_per_page] || EasyredmineSipgateConnector.history_page_size).to_i
+  end
+  
 end

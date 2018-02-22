@@ -49,6 +49,16 @@ class SipgateConnectorController < ApplicationController
     redirect_to action: 'unassigned_calls'
   end
   
+  def data
+    per_page = if params[:per_page]
+      session[:sipgate_per_page] = params[:per_page].to_i
+    else
+      session[:sipgate_per_page] || EasyredmineSipgateConnector.history_page_size
+    end  
+    
+    @calls = SipgateCallHistory.where(user_id: User.current.id).limit(per_page)
+  end
+  
   private 
   
   def rusip_auth
