@@ -7,6 +7,11 @@ class SipgateConnectorController < ApplicationController
     redirect_to rusip_auth.auth_redirect_url
   end
   
+  def unauth
+    User.current.update_attributes(sipgate_user_id: nil, sipgate_token: nil)
+    redirect_to :back
+  end
+  
   def callback
     if params[:code]
       response_for_token = rusip_auth.post_token_request(params[:code])
