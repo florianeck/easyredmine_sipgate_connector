@@ -3,7 +3,11 @@ namespace :sipgate do
   desc "Loads call histories for users with sipgate_user_id set"
   task :load_call_histories => :environment do
     User.where.not(sipgate_user_id: nil).each do |user|
-      SipgateCallHistory.load_call_history_for_user(user)
+      begin
+        SipgateCallHistory.load_call_history_for_user(user)
+      rescue RestClient::Unauthorized => e
+        puts "FAILED to authenticate User #{user.to_s}"
+      end
     end
   end
   
