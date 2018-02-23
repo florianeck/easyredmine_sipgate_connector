@@ -12,4 +12,8 @@ module EasyredmineSipgateHelper
     (session[:sipgate_per_page] || EasyredmineSipgateConnector.history_page_size).to_i
   end
   
+  def sipgate_pages_count
+    (SipgateCallHistory.where(user_id: User.current.id).count/sipgate_per_page.to_f).ceil
+  end
+  
 end

@@ -1,21 +1,7 @@
 <div id="dashboard_call_history_tools">
-  <span>Anzeige:</span>&nbsp;<%= select_tag :per_page, options_for_select([5,10,15,20,25,50], selected: sipgate_per_page), id: "sipgate_per_page" %>
+  <%= render "sipgate_connector/easy_page_modules/sipgate_call_history_controls" %>
 </div>
 <div id="dashboard_call_history">
   <%= render "sipgate_connector/easy_page_modules/sipgate_call_history_rows", current_entries: SipgateCallHistory.where(user_id: User.current.id).limit(sipgate_per_page) %>
 </div>
 
-<script type="text/javascript">
-  sipgate_data_url = "<%= sipgate_data_path %>"
-  $(document).ready(function(){
-    $("#sipgate_per_page").change(function(){
-      $.get(
-        sipgate_data_url,
-        {per_page: $(this).val() }
-      )
-    })
-  })
-  
-  setInterval(function(){ $.get(sipgate_data_url) }, 30000);
-  
-</script>
