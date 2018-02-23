@@ -103,7 +103,8 @@ class SipgateCallHistory < ActiveRecord::Base
   
   def assign_easy_contact
     return if self.easy_contact_id.present?
-    self.easy_contact = EasyContact.where("telephone_cached LIKE '%#{self.external_caller[:nr]}%'").first
+    query = "telephone_cached REGEXP '\\\\+17([[:>:]]|$)'".gsub("+17", self.external_caller[:nr])
+    self.easy_contact = EasyContact.where(query).first
   end
   
   # nur calls
