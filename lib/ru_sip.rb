@@ -105,7 +105,7 @@ module RuSip
     private
     
     def get(path, params = {})
-      JSON.parse(RestClient.get(url(path), headers.merge(params: params)))
+      JSON.parse(RestClient::Request.execute(method: :get, url: url(path), headers: headers.merge(params: params), verify_ssl: false))
     end
     
     def post(path, params)
