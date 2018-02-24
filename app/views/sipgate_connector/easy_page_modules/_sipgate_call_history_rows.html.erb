@@ -1,6 +1,6 @@
 <% current_entries.each do |hist| %>
   <div id="call-<%= hist.id %>" class="call-history-dashboard-row <%= hist.direction.downcase %> <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
-    <div class="call-entry-field call-created-at call-data-no-wrap"><%= format_time hist.call_created_at %></div>
+    <div class="call-entry-field call-created-at call-data-no-wrap"><%= hist.id %>) <%= format_time hist.call_created_at %></div>
     <div class="call-entry-field call-contact">
       <% if hist.easy_contact.present? %>
         <%= link_to hist.easy_contact, easy_contact_path(hist.easy_contact) %><br>

@@ -6,14 +6,27 @@
 
 <script type="text/javascript">
   sipgate_data_url = "<%= sipgate_data_path %>"
-  $(document).ready(function(){
+  
+  initSipgateTools = function(){
     $("#sipgate_per_page").change(function(){
       $.get(
         sipgate_data_url,
         {per_page: $(this).val() }
       )
     })
-  })
+    
+    $(".sipgate-page-nr").click(function(){
+      $.get(
+        sipgate_data_url,
+        {page: $(this).data("sipgate-page-nr"), per_page: $("#sipgate_per_page").val() }
+      )
+    })
+    
+    
+  }
+  
+  $(document).ready(function(){ initSipgateTools() })
+  
   
   setInterval(function(){ $.get(sipgate_data_url) }, 30000);
   

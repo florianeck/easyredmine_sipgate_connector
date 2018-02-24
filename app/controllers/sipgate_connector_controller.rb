@@ -61,6 +61,8 @@ class SipgateConnectorController < ApplicationController
       session[:sipgate_per_page] || EasyredmineSipgateConnector.history_page_size
     end  
     
+    binding.pry
+    
     @calls = SipgateCallHistory.where(user_id: User.current.id).limit(per_page)
   end
   
