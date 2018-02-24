@@ -31,4 +31,5 @@ td.call-data-no-wrap { white-space: nowrap;}
 .call-history-dashboard-row .call-duration { width: 29%; text-align: right;}
 
 #sipgate_per_page { width: 60px;}
-.sipgate-page-nr { display: inline-block; padding: 2px 10px; border: solid 1px #eee;}
+.sipgate-page-nr { display: inline-block; padding: 2px 10px; border: solid 1px #eee; cursor: pointer;}
+.sipgate-page-nr.is_current { font-weight: bold;}

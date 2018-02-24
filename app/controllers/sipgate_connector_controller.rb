@@ -61,9 +61,13 @@ class SipgateConnectorController < ApplicationController
       session[:sipgate_per_page] || EasyredmineSipgateConnector.history_page_size
     end  
     
-    binding.pry
+    offset = if params[:page]
+      per_page*(params[:page].to_i-1)
+    else
+      0
+    end
     
-    @calls = SipgateCallHistory.where(user_id: User.current.id).limit(per_page)
+    @calls = SipgateCallHistory.where(user_id: User.current.id).limit(per_page).offset(offset)
   end
   
   private 
