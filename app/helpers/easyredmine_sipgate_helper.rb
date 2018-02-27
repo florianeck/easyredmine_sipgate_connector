@@ -16,4 +16,16 @@ module EasyredmineSipgateHelper
     (SipgateCallHistory.where(user_id: User.current.id).count/sipgate_per_page.to_f).ceil
   end
   
+  def is_sipgate_current_page(i)
+    if params[:page].present?
+      params[:page].to_i == i
+    else
+      i == 1
+    end
+  end
+  
+  def sipgate_pager_link(i)
+    content_tag(:span, i, class: "sipgate-page-nr #{'is_current' if is_sipgate_current_page(i)}", data: {'sipgate-page-nr' => i} )
+  end
+  
 end

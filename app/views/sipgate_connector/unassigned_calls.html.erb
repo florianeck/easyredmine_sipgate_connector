@@ -15,7 +15,7 @@
       <tr>
         <th></th>
         <th><%= SipgateCallHistory.human_attribute_name(:external_caller) %></th>
-        <th><%= SipgateCallHistory.human_attribute_name(:duration) %></th>
+        <th><%= SipgateCallHistory.human_attribute_name(:call_created_at) %></th>
         <th></th>
       </tr>
     </thead>
@@ -23,12 +23,10 @@
   
       <tr id="call-<%= hist.id %>" class="<%= hist.direction.downcase %> <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
         <td><%= f.check_box hist.id %></td>  
-        <td class="call-data-no-wrap"><%=  image_tag("icon-#{hist.direction.downcase}.png", :plugin => 'easyredmine_sipgate_connector', width: 16, height: 16)  %> - <%= hist.status_label %></td>
         <td>  
           <%= hist.external_caller[:nr] %><br>
-          <%#= hist.external_caller[:name] %>
         </td>
-        <td><%= (hist.duration/60).to_s.rjust(2, '0') %>:<%= (hist.duration%60).to_s.rjust(2, '0') %></td>
+        <td><%= format_time hist.call_created_at %></td>
       </tr>  
     <% end %>
   </table>

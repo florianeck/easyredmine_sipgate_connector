@@ -36,6 +36,8 @@ class SipgateConnectorController < ApplicationController
   end
   
   def unassigned_calls
+    # Letzter KOntakt /Datum/UHrzeit)
+    # Sortiert nach neuste zuerst
     @show_private = (params[:show_private] == '1')
     @calls = SipgateCallHistory.where(private_call: @show_private, user_id: User.current.id, easy_contact_id: nil).group(:external_number)
   end

@@ -10,7 +10,7 @@
       <th></th>
     </tr>
   </thead>
-  <% (@easy_contact.try(:sipgate_call_histories) || @calls).each do |hist| %>
+  <% (@easy_contact.try(:sipgate_call_histories) || @calls).first(50).each do |hist| %>
   
     <tr id="call-<%= hist.id %>" class="<%= hist.direction.downcase %> <%= 'highlight' if params[:call_id].to_i == hist.id  %>">
       <td><%= avatar(hist.user, :size => "24") %>&nbsp;<%= link_to_user hist.user %></td>  

@@ -1,14 +1,30 @@
 <span>Anzeige:</span>&nbsp;<%= select_tag :per_page, options_for_select([5,10,15,20,25,50], selected: sipgate_per_page), id: "sipgate_per_page" %>
 
-<% (1..sipgate_pages_count).to_a.uniq.each do |i| %>
-  <% is_current = if params[:page].present?
-    params[:page].to_i == i
-  else
-    i == 1
-  end
-   %>
-  <span class="sipgate-page-nr <%= 'is_current' if is_current  %>" data-sipgate-page-nr="<%= i %>"><%= i %></span>
-<% end %>
+<% pages = (1..sipgate_pages_count).to_a.uniq %>
+<% if pages.size > 6 %>
+  <%= sipgate_pager_link(1) %>
+  <% if params[:page] && params[:page].to_i != 1 %>
+    <% index = pages.index(params[:page].to_i) %>
+    
+    ...
+    <% cur_pages = pages[index-1..(index+(index == 1 ? 2 : 1))] %>
+    <% cur_pages.delete(1) %>
+    <% cur_pages.delete(pages.last) %>
+    <% cur_pages.each do |i| %>
+      <%= sipgate_pager_link(i) %>
+    <% end %>
+  <% else %>
+    <% pages[1..2].each do |i| %>
+      <%= sipgate_pager_link(i) %>
+    <% end %>    
+  <% end %>  
+  ...
+  <%= sipgate_pager_link(pages.last) %>
+<% else %>
+  <% pages.each do |i| %>
+    <%= sipgate_pager_link(i) %>
+  <% end %>
+<% end %>  
 
 <script type="text/javascript">
   sipgate_data_url = "<%= sipgate_data_path %>"
